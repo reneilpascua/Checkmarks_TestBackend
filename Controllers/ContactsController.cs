@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Json;
 using System.Linq;
 using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+// using Newtonsoft.Json;
+using System.Text.Json;
 using testBackend.Models;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace testBackend.Controllers
 {
@@ -61,13 +64,28 @@ namespace testBackend.Controllers
                 {
                     var responseTaskString = await client.GetStringAsync(url);
                     return Ok(responseTaskString);
-                } else {
+                }
+                else
+                {
                     return NotFound();
                 }
-
-
             }
         }
 
+        [HttpPost]
+        public async void AddNewContact()
+        {
+            NewContact nc = new NewContact()
+            {
+                Name = "From WebApi",
+                Type = "Person"
+            };
+
+            string url = $"https://app.clio.com/api/v4/contacts.json";
+
+            // use httpclient to send post request
+
+            
+        }
     }
 }
